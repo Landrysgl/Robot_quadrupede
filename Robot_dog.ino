@@ -37,8 +37,8 @@ void setServoAngle(uint8_t servoNum, float angleMin, float angle) {
 
 
 
-test avancePre(float Y, float Z){
-test joueur;
+test preForward(float Y, float Z){
+test J;
 float L;
 float J3L = 12.5;
 float B;
@@ -55,7 +55,7 @@ if (valJ3 > 1.0) valJ3 = 1.0;
 if (valJ3 < -1.0) valJ3 = -1.0;
 if (valJ3 = nan) valJ3 = 0.5;
 
-joueur.J3 = radToDeg(valJ3);
+J.J3 = radToDeg(valJ3);
 
 
 float valB = (J2L * J2L - J3L * J3L + L * L) / (2 * J2L * L);
@@ -68,16 +68,16 @@ B = radToDeg(acos(valB));
 A = radToDeg(atan((Z-60) / (Y+90)));
 
 
-joueur.J2 = B - A;
+J.J2 = B - A;
 
-joueur.J2 = 90 - joueur.J2;
+J.J2 = 90 - J.J2;
 
-return joueur;
+return J;
 }
 
-void setAv(int servo1, int servo2, float Y, float Z){
+void setForward(int servo1, int servo2, float Y, float Z){
   
-  test angles = avancePre(Y,Z);
+  test angles = preForward(Y,Z);
 
 
 if (servo1 == 4) {
@@ -90,7 +90,7 @@ if (servo1 == 4) {
 }
 
 
-void avancer(){
+void goStraight(){
   setServoAngle(9, 0, 70);
   setServoAngle(6, 0, 75); 
   setServoAngle(3, 0, 73);
@@ -136,10 +136,10 @@ void pause(){
 
 
 void loop() {
-setAv(10, 11, -72,80);
-setAv(7, 8, 0,42);
-setAv(4, 5, -75, 100);
-setAv(2, 1, 10, 0);
+setForward(10, 11, -72,80);
+setForward(7, 8, 0,42);
+setForward(4, 5, -75, 100);
+setForward(2, 1, 10, 0);
 delay(4000); 
 pause();
 delay(4000);
